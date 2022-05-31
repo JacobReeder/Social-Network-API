@@ -17,17 +17,38 @@ const userSchema = new Schema({
         
     },
 
-    thoughts: {
-         ////Array of _id values referencing the Thought model
-    },
+    ////Array of _id values referencing the Thought model
+    thoughts: [
 
-    friends: {
-       // Array of _id values referencing the User model (self-reference)
-    },
+        {
+         type: Schema.Types.ObjectId, ///is this _id Values?
+         ref: 'Thought'
+    }
+    ],
+
+    // Array of _id values referencing the User model (self-reference)
+    friends: [
+        {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+       
+    }
+    ]
 
     //Create a virtual called friendCount that retrieves the 
     //length of the user's friends array field on query.
-})
+
+    //userSchema.virtual('commentCount).get(function() {
+    //    return this.friends.length;
+    //})
+},
+{
+    toJSON: {
+      virtuals: true,
+    },
+    id: false
+  }
+);
 
 // create the User model using the userSchema
 const User = model('User', userSchema);
