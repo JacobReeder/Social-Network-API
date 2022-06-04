@@ -3,27 +3,26 @@ const { Schema, model } = require('mongoose');
 const userSchema = new Schema({
 
     username: {
-        type: String
-        //Unique
-        //Required
-        //Trimmed
+        type: String,
+        unique: true,
+        required: true,
+        trim: true
     },
 
     email: {
-        type: String
-        //Required
-        //Unique
-        //Must match a valid email address (look into Mongoose's matching validation)
+        type: String,
+        required: true,
+        unique: true,
+        match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
         
     },
 
     ////Array of _id values referencing the Thought model
     thoughts: [
-
-        {
-         type: Schema.Types.ObjectId, ///is this _id Values?
-         ref: 'Thought'
-    }
+      {
+      type: Schema.Types.ObjectId, 
+      ref: 'Thought'
+       }
     ],
 
     // Array of _id values referencing the User model (self-reference)
@@ -33,25 +32,22 @@ const userSchema = new Schema({
       ref: 'User'
        
     }
-    ]
-
-    //Create a virtual called friendCount that retrieves the 
-    //length of the user's friends array field on query.
-
-    //userSchema.virtual('commentCount).get(function() {
-    //    return this.friends.length;
-    //})
+ ]
 },
-{
+  {
     toJSON: {
       virtuals: true,
+      getters: true
     },
+    // prevents virtuals from creating duplicate of _id as `id`
     id: false
   }
 );
 
-// create the User model using the userSchema
+  userSchema.virtual('friendCount').get(function() {
+      return this.friends.length;
+});
+
 const User = model('User', userSchema);
 
-// export the User model
 module.exports = User;
