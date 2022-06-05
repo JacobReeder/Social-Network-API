@@ -2,6 +2,36 @@ const { Thought, User } = require('../models');
 
 const thoughtController = {
 
+  ///GET all Thoughts
+  getAllThoughts(req, res) {
+    Thought.find({})
+     .then(dbThoughtData => res.json(dbThoughtData))
+     .catch(err => {
+       console.log(err);
+       res.status(400).json(err);
+     });
+  },
+
+
+  ///GET single Thought
+  getThoughtId({ params}, res) {
+    Thought.findOne({ _id: params.id})
+    .then(dbThoughtData => {
+      if(!dbThoughtData) {
+        res.status(404).json({ message: 'Thoughtless!'});
+        return;
+      }
+      res.json(dbThoughtData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+
+  },
+
+
+  //Is this PUT or POST?
     addThought({ params, body }, res) {
         console.log(body);
         Thought.create(body)
@@ -24,7 +54,7 @@ const thoughtController = {
     },
 
 
-
+//DELETE Thought
  removeThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.thoughtId })
       .then(deletedThought => {
