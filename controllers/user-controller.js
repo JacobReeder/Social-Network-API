@@ -61,10 +61,31 @@ deleteUser({ params }, res) {
         res.json(dbUserData);
       })
       .catch(err => res.status(400).json(err));
-  }
-};
+  },
 
-//associate with thought model?
+
+///Friends
+
+//post friend
+postFriend({ body }, res) {
+  User.create(body)
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err => res.status(400).json(err));
+  },
+
+deleteFriend({ params }, res) {
+  User.findOneAndDelete({ _id: params.id })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No friend found with this id!' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => res.status(400).json(err));
+}
+
+};
 
 
 module.exports = userController
