@@ -69,7 +69,7 @@ const reactionSchema = new Schema({
        
       } 
     },
-      { // alows to user getters (which is what we have date format)
+      {
           toJSON: {
               virtuals: true,
               getters: true
