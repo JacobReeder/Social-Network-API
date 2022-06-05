@@ -1,6 +1,45 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const moment = require('moment');
 
+ 
+/////Reaction//////
+const reactionSchema = new Schema({
+
+  
+  //Array of nested documents created with the reactionSchema    
+   reactionId: 
+     {
+      type: Schema.Types.ObjectId,
+      efault: () => new Types.ObjectId()
+     },
+
+     reactionBody: {
+       type: String,
+        required:true,
+        maxLength: 280
+     },
+
+     username: {
+       type: String,
+        required: true
+     },
+
+    createdAt: {
+      type: Date,
+      default: Date.now, 
+      get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+     
+    } 
+  },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        }    
+    }
+);
+
+///////Thought/////////
 const thoughtSchema = new Schema({
 
     thoughtText: {
@@ -13,7 +52,7 @@ const thoughtSchema = new Schema({
     createdAt: {
       type: Date,
       default: Date.now, 
-      get: (createdAtVal) => dateFormat(createdAtVal)
+      get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
      
     },
 
@@ -37,48 +76,12 @@ const thoughtSchema = new Schema({
     },
     id: false
   }
-);
+)
 
-    
+   
 
-const reactionSchema = new Schema({
-
-  
-    //Array of nested documents created with the reactionSchema    
-     reactionId: 
-       {
-        type: Schema.Types.ObjectId,
-        efault: () => new Types.ObjectId()
-       },
-
-       reactionBody: {
-         type: String,
-          required:true,
-          maxLength: 280
-       },
-
-       username: {
-         type: String,
-          required: true
-       },
-
-      createdAt: {
-        type: Date,
-        default: Date.now, 
-        get: createdAtVal => dateFormat(createdAtVal)
-       
-      } 
-    },
-      {
-          toJSON: {
-              virtuals: true,
-              getters: true
-          }    
-      }
-);
-
- thoughtSchema = virtual('reactionCount').get(function() {
-   return this.reactionBody.length;
+ thoughtSchema.virtual('reactionCount').get(function() {
+   return this.reactions.length;
  });
 
 
