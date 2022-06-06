@@ -15,7 +15,6 @@ const router = require('express').Router();
 router
   .route('/')
   .get(getAllUsers)
-  .get(getUserById)
   .post(createUser);
 
   /**
@@ -29,6 +28,7 @@ router
 // Set up GET one, PUT, and DELETE at /api/user/:id
 router
   .route('/:id')
+  .get(getUserById)
   .put(updateUser)
   .delete(deleteUser);
 
@@ -37,7 +37,17 @@ router
 router
  .route('/api/users/:userId/friends/:friendId')
  .post(postFriend) // to add a new friend to a user's friend list
- .delete(deleteFriend) // to remove a friend from a user's friend list
+ .delete(deleteFriend) // to remove a friend from a user's friend list*/
+
+
+// -- Directs to: /api/users <GET, POST>
+//router.route('/').get(getAllUsers).post(createUser);
+
+// -- Directs to: /api/users/:id <GET, PUT, DELETE>
+//router.route('/:id').get(getUserById).put(updateUser).delete(deleteUser);
+
+// -- Directs to: /api/users/:userId/friends/:friendId <POST, DELETE>
+//router.route('/:id/friends/:friendId').post(postFriend).delete(deleteFriend)
 
 
 

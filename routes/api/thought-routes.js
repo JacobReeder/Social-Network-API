@@ -3,17 +3,21 @@ const router = require('express').Router();
 const { getAllThoughts,
         getThoughtId,
         addThought, 
-      //  updateThought,
+        updateThought,
         removeThought,
         addReaction,
         deleteReaction
 } = require('../../controllers/thought-controller');
 
 router
-.route('/:userId')
+.route('/')
 .get(getAllThoughts) 
+
+router
+.route('/:userId')
 .get(getThoughtId)
-.post(addThought); ///or should this be put?
+.post(addThought);
+
 
 /**
  * // example data
@@ -27,7 +31,7 @@ router
 
 router
 .route('/:userId/:thoughtId')
-//.put(updateThought) 
+.put(updateThought) 
 .delete(removeThought);
 
 
