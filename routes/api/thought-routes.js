@@ -40,7 +40,7 @@ router
 .post(addReaction);  ///to create a reaction stored in a single thought's reactions array field
 
  router
- .route('/api/thoughts/:thoughtId/reactionId')
+ .route('/:thoughtId/reactions/:reactionId')
  .delete(deleteReaction); ///to pull and remove a reaction by the reaction's reactionId value
  
 

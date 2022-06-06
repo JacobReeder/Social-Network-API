@@ -82,9 +82,8 @@ const thoughtController = {
 
 ////reactions
 ////.post
-addReaction({ body }, res) {
-    Thought.create(body)
-    findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
+addReaction({params, body}, res) {
+    Thought.findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
         .populate({path: 'reactions', select: '-__v'})
         .select('-__v')
       .then(dbThoughtData => {
