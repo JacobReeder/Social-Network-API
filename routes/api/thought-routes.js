@@ -11,11 +11,16 @@ const { getAllThoughts,
 
 router
 .route('/')
-.get(getAllThoughts) 
+.get(getAllThoughts);
+
+router
+.route('/:id')
+.get(getThoughtId)
+.put(updateThought) 
+.delete(removeThought);
 
 router
 .route('/:userId')
-.get(getThoughtId)
 .post(addThought);
 
 
@@ -29,21 +34,15 @@ router
  * 
  */
 
+//////Reactions
 router
-.route('/:userId/:thoughtId')
-.put(updateThought) 
-.delete(removeThought);
+.route('/:thoughtId/reactions')
+.post(addReaction);  ///to create a reaction stored in a single thought's reactions array field
 
-
- //////Reactions
  router
- .route('/api/thoughts/:thoughtId/reactions')
- .post(addReaction)  ///to create a reaction stored in a single thought's reactions array field
+ .route('/api/thoughts/:thoughtId/reactionId')
  .delete(deleteReaction); ///to pull and remove a reaction by the reaction's reactionId value
-
-
-
-
  
+
 
 module.exports = router;
