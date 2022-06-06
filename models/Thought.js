@@ -33,7 +33,6 @@ const reactionSchema = new Schema({
   },
     {
         toJSON: {
-            virtuals: true,
             getters: true
         }    
     }
@@ -62,12 +61,12 @@ const thoughtSchema = new Schema({
       trim: true
     },
     
-    userId: {
+   /* userId: {
       type: String,
       required: 'Whos thought?',
       trim: true
-   },
-    reactions: [reactionSchema],
+   },*/
+    reactions: [reactionSchema]
   },
   {
     toJSON: {
