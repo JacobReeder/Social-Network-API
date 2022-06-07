@@ -1,10 +1,9 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const moment = require('moment');
 
  
 /////Reaction//////
 const reactionSchema = new Schema({
-
   
   //Array of nested documents created with the reactionSchema    
    reactionId: 
@@ -39,8 +38,8 @@ const reactionSchema = new Schema({
 );
 
 ///////Thought/////////
-const thoughtSchema = new Schema({
-
+const thoughtSchema = new Schema(
+  {
     thoughtText: {
         type: String,
         required: true,
@@ -61,11 +60,6 @@ const thoughtSchema = new Schema({
       trim: true
     },
     
-   /* userId: {
-      type: String,
-      required: 'Whos thought?',
-      trim: true
-   },*/
     reactions: [reactionSchema]
   },
   {
