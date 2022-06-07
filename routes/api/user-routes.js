@@ -35,7 +35,7 @@ router
 
  ///friends 
 router
- .route('/api/users/:userId/friends/:friendId')
+ .route('/:id/friends/:friendId')
  .post(postFriend) // to add a new friend to a user's friend list
  .delete(deleteFriend) // to remove a friend from a user's friend list*/
 
