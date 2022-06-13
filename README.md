@@ -12,4 +12,4 @@ Intalling Express.js, Moments.js, and Mongoose is required to use this applicati
 Start the application by activating the server via the "npm start" command through the command line. Once started, various routes are testable through the Insomnia application. There are GET, POST, PUT, and DELETE routes available for testing from both the User and Thought models, as well as POST and DELETE routes available for Friends and Reaction schema. 
 
 ## Link
-Links to a video demonstrating functionality - https://drive.google.com/file/d/1ND8sTkCidcdJPcdw66qGEDRPhqL02lKO/view
+Links to a video demonstrating functionality -  https://drive.google.com/file/d/1XEmIdXbzsm3kjlyYwbIGIWSO2Lxep_gW/view
